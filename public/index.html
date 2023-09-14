@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body class="bg-primary-subtle">
+    <div>
+        <h1 class="text-center">Documentation</h1>
+        <hr>
+        <br>
+        <h2 class="text-center">Toys API <br>
+            All Optional Routers:</h2>
+        <table class="container text-center">
+            <tr class="border border-black bg-dark-subtle">
+                <th class="border border-black">HTTP <br> Method</th>
+                <th class="border border-black">Route</th>
+                <th class="border border-black">Description</th>
+                <th class="border border-black">Parameters / Request Body</th>
+            </tr>
+            <tr class="border border-black bg-info ">
+                <td class="border border-black bg-primary">GET</td>
+                <td class="border border-black">/toys</td>
+                <td class="border border-black">Returns a list <br> of toys <br> according to <br> the query <br>
+                    parameters <br> you use.</td>
+                <td class="border border-black text-start">1.page (optional): page number to display <br> (default: 1).
+                    Example-
+                    <br> <a href="/toys?page=1">/toys?page=1</a>
+                </td>
+            </tr>
+            <tr class="border border-black bg-info ">
+                <td class="border border-black bg-primary">GET</td>
+                <td class="border border-black">/toys/search/:name or information</td>
+                <td class="border border-black">Returns a list <br> of toys <br>matching to <br> the search <br> query.
+                </td>
+                <td class="border border-black text-start">1.the search query to match against toys names or <br>
+                    information.
+                    <br> Example names-
+                    <br> <a href="/toys/search/lego">/toys/search/lego</a>
+                    <br>Example information- <br> <a href="/toys/search/321">/toys/search/321</a>
+                </td>
+            </tr>
+            <tr class="border border-black bg-info ">
+                <td class="border border-black bg-primary">GET</td>
+                <td class="border border-black">/toys/category/:catname</td>
+                <td class="border border-black">Returns a list <br> of toys by <br> category</td>
+                <td class="border border-black text-start">1.catname: the name of the category to display toys for. <br>
+                    Example-
+                    <br> <a href="/toys/category/polish">/toys/category/polish</a>
+                </td>
+            </tr>
+            <tr class="border border-black bg-info ">
+                <td class="border border-black bg-primary">GET</td>
+                <td class="border border-black">/toys/prices</td>
+                <td class="border border-black">Returns a <br> list of toys <br> filtered by <br> price range.</td>
+                <td class="border border-black text-start">• min (optional): minimum price to filter by (default: 0).
+                    <br>
+                    • max (optional): maximum price to filter by (default: <br> maximum 999999). <br> Example-
+                    <br> <a href="/toys/prices?min=60&max=110">/toys/prices?min=60&max=110</a>
+                    <br>You can also do a price range search on the page- <br>
+                    <a href="/toys/prices?page=1&min=60&max=110">/toys/prices?page=1&min=60&max=110</a>
+                </td>
+            </tr>
+            <tr class="border border-black bg-info ">
+                <td class="border border-black bg-primary">GET</td>
+                <td class="border border-black">/toys/single/:id</td>
+                <td class="border border-black">Returns a <br> single toy <br> by its ID.</td>
+                <td class="border border-black text-start">• id: the ID of the toy to retrieve.
+                    <br> <a href="/toys/single/650026395d6616d0afcbe1e0">/toys/single/650026395d6616d0afcbe1e0</a>
+                </td>
+            </tr>
+            <tr class="border border-black bg-info ">
+                <td class="border border-black bg-primary">GET</td>
+                <td class="border border-black">/toys/count</td>
+                <td class="border border-black">Returns how many <br> toys there are <br> in total and <br> how many
+                    pages <br> it is divided <br> according to <br> the limit.</td>
+                <td class="border border-black text-start">
+                    <br> Example- <br> <a href="/toys/count">/toys/count</a>
+                </td>
+            </tr>
+            <tr class="border border-black bg-success bg-gradient ">
+                <td class="border border-black bg-success">POST</td>
+                <td class="border border-black">/toys</td>
+                <td class="border border-black">Adds a new toys.
+                    <br> Token is required!
+                </td>
+                <td class="border border-black text-start">Request Body: Toy data to be added in the <br> following
+                    format- <br> {
+                    <br> "name":"send" ,
+                    <br> "info": "321",
+                    <br> "category": "polish",
+                    <br> "img_url": " ",
+                    <br> "price": "75",
+                    <br> "userId": "650023b15d6616d0afcbe1da"
+                    <br> }
+                </td>
+            </tr>
+            <tr class="border border-black bg-warning bg-gradient ">
+                <td class="border border-black bg-warning">PUT</td>
+                <td class="border border-black">/toys/:editId</td>
+                <td class="border border-black">Updates an <br> existing toys.
+                    <br> Token is required!
+                </td>
+                <td class="border border-black text-start">• editId: the ID of the toy to update. <br>• Request Body:
+                    Toy data to be <br> updated in the following format-
+                    <br> {
+                    <br> "name":"send" ,
+                    <br> "info": "321",
+                    <br> "category": "polish",
+                    <br> "img_url": " ",
+                    <br> "price": "70",
+                    <br> "userId": "650023b15d6616d0afcbe1da"
+                    <br> }
+
+                </td>
+            </tr>
+            <tr class="border border-black bg-danger bg-gradient ">
+                <td class="border border-black bg-danger">DELETE</td>
+                <td class="border border-black">/toys/:delId</td>
+                <td class="border border-black">Deletes a toy <br> by its ID.
+                    <br> is required!
+                </td>
+                <td class="border border-black text-start">1.delId: the ID of the toy to delete.</td>
+            </tr>
+        </table>
+        <br>
+        <hr>
+        <h2 class="text-center">Users API <br>
+            All Optional Routers:</h2>
+        <table class="container text-center">
+            <tr class="border border-black bg-dark-subtle">
+                <th class="border border-black">HTTP <br> Method</th>
+                <th class="border border-black">Route</th>
+                <th class="border border-black">Description</th>
+                <th class="border border-black">Request Body</th>
+            </tr>
+            <tr class="border border-black bg-success bg-gradient ">
+                <td class="border border-black bg-success">POST</td>
+                <td class="border border-black">/users</td>
+                <td class="border border-black">Create a new user</td>
+                <td class="border border-black text-start">Request Body: User data to be <br> post in the following
+                    format-
+                    <br>{
+                    <br> "name": "string",
+                    <br> "email": "String",
+                    <br>"password": "string",
+                    <br>"role": "string"
+                    <br>}
+                    <br> role is allowed and not required <br> (default: user).
+                </td>
+            </tr>
+            <tr class="border border-black bg-success bg-gradient ">
+                <td class="border border-black bg-success">POST</td>
+                <td class="border border-black">/users/login</td>
+                <td class="border border-black">Authenticate a <br> user and receive <br> a JWT token <br> in response
+                </td>
+                <td class="border border-black text-start">Request Body: User data to be <br> loged in the following
+                    format-
+                    <br>{
+                    <br> "email": "String",
+                    <br>"password": "string",
+                    <br>}
+                </td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <br>
+        <br>
+       
+    </div>
+
+</body>
+
+</html>
