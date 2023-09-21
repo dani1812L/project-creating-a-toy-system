@@ -20,7 +20,7 @@ exports.validateToys = (_reqBody) => {
     name: Joi.string().min(2).max(150).required(),
     info: Joi.string().min(2).max(150).required(),
     category: Joi.string().min(2).max(150).required(),
-    img_url: Joi.string().min(2).max(400).required(),
+    img_url: Joi.allow(null,""),
     price: Joi.number().min(1).max(99999).required(),
     userId: Joi.string().min(2).max(150).required(),
   });

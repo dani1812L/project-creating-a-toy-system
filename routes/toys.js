@@ -3,9 +3,9 @@ const { auth } = require("../middlewares/auth");
 const { ToysModel, validateToys } = require("../models/toysModel");
 const router = express.Router();
 
-// GET - בקשה כללית לצעצועים במערכת
-// את הצעצועים PAGE של QUERY ישלוף לפי
-// (10 הוא LIMIT כאשר ה)
+// General request for toys in the GET system
+// will retrieve the toys according to PAGE's QUERY
+// (when the LIMIT is 10)
 router.get("/", async (req, res) => {
   try {
     //?limit=X&page=X&sort=X&reveres=yes
@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-//שלו INFO בקשה לחיפוש מוצר לפי השם או ה
+//Request to search for a product by its name or INFO
 router.get("/search/:name", async (req, res) => {
   try {
     //?limit=X&page=X&sort=X&reveres=yes
@@ -29,11 +29,10 @@ router.get("/search/:name", async (req, res) => {
     const page = req.query.page - 1 || 0;
 
     let filteFind = {};
-    // בודק אם הגיע קווארי לחיפוש ?s=
     if (req.params.name) {
-      // "i" - דואג שלא תיהיה בעיית קייססינסטיב
+      // "i" - Make sure there is no caseinstinctive problem
       const searchExp = new RegExp(req.params.name, "i");
-      // יחפש במאפיין הטייטל או האינפו ברשומה
+      // will search in the title or info property of the record
       filteFind = { $or: [{ name: searchExp }, { info: searchExp }] };
     }
 
@@ -47,7 +46,7 @@ router.get("/search/:name", async (req, res) => {
   }
 });
 
-// בקשת צעצוע לפי קטגוריה
+// Toy request by category
 router.get("/category/:catname", async (req, res) => {
   try {
     //?limit=X&page=X&sort=X&reveres=yes
@@ -55,12 +54,11 @@ router.get("/category/:catname", async (req, res) => {
     const page = req.query.page - 1 || 0;
 
     let filteFind = {};
-    // בודק אם הגיע קווארי לחיפוש ?s=
     console.log(req);
     if (req.params.catname) {
-      // "i" - דואג שלא תיהיה בעיית קייססינסטיב
+      // "i" - Make sure there is no caseinstinctive problem
       const searchExp = new RegExp(req.params.catname, "i");
-      // יחפש במאפיין הטייטל או האינפו ברשומה
+      // will search the title or info property in the record
       filteFind = { category: searchExp };
     }
     const data = await ToysModel.find(filteFind)
@@ -76,8 +74,8 @@ router.get("/category/:catname", async (req, res) => {
 // Get all the toys within the specified price range
 router.get("/prices", async(req, res) => {
   try {
-    const min = req.query.min;
-    const max = req.query.max;
+    const min = req.query.min || 0;
+    const max = req.query.max || Infinity;
     const limit = req.query.limit || 10;
     const page = req.query.page - 1 || 0;
 
@@ -95,7 +93,7 @@ router.get("/prices", async(req, res) => {
   }
 })
 
-// ישלוף רק רשומה אחת לפי איי די
+// will only retrieve one record according to the ID of the toy
 router.get("/single/:id", async(req,res) => {
   try{
     const id = req.params.id
@@ -108,12 +106,12 @@ router.get("/single/:id", async(req,res) => {
   }
 })
 
-//יחזיר את מספר הרשומות שיש בקולקשן
+// will return the number of records in the collection
 router.get("/count", async(req,res) => {
   try{
     const limit = req.query.limit || 10;
     const count = await ToysModel.countDocuments({})
-    // pages: - יציג למתכנת צד לקוח כמה עמודים הוא צריך להציג סהכ
+    // pages: - Will show the client side programmer how many pages he needs to show in total
     res.json({count,pages:Math.ceil(count/limit)})
   }
   catch(err){
@@ -122,7 +120,7 @@ router.get("/count", async(req,res) => {
   }
 })
 
-// הוספת צעצוע
+// Add a toy
 router.post("/", auth, async (req, res) => {
   const validBody = validateToys(req.body);
   if (validBody.error) {
@@ -130,7 +128,7 @@ router.post("/", auth, async (req, res) => {
   }
   try {
     const toys = new ToysModel(req.body);
-    // להוסיף מאפיין של יוזר איי די לרשומה
+    // Add a User ID attribute to the record
     toys.userId = req.tokenData._id;
     await toys.save();
     res.status(201).json(toys);
@@ -140,7 +138,7 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-// עריכת צעצוע
+// Toy editing
 router.put("/:id", auth, async (req, res) => {
   const validBody = validateToys(req.body);
   if (validBody.error) {
@@ -148,13 +146,13 @@ router.put("/:id", auth, async (req, res) => {
   }
   try {
     const id = req.params.id;
-    // ,user_id:req.tokenData._id - דואג שרק בעל הרשומה יוכל
-    // לשנות את הרשומה לפי הטוקן
+    // ,user_id:req.tokenData._id - Ensures that only the owner 
+    // of the record can change the record according to the token
     const data = await ToysModel.updateOne(
       { _id: id, userId: req.tokenData._id },
       req.body
     );
-    // "modifiedCount": 1, אומר שהצליח כשקיבלנו
+    // "modifiedCount": 1, - Says it was successful when we got at least 
     res.json(data);
   } catch (err) {
     console.log(err);
@@ -162,17 +160,17 @@ router.put("/:id", auth, async (req, res) => {
   }
 });
 
-// מחיקת צעצוע
+// Deleting a toy
 router.delete("/:id", auth, async (req, res) => {
   try {
     const id = req.params.id;
-    // ,user_id:req.tokenData._id - דואג שרק בעל הרשומה יוכל
-    // למחוק את הרשומה לפי הטוקן
+    // ,user_id:req.tokenData._id - Ensures that only the owner of the 
+    // record can delete the record according to the token
     const data = await ToysModel.deleteOne({
       _id: id,
       userId: req.tokenData._id,
     });
-    // "modifiedCount": 1, אומר שהצליח כשקיבלנו
+    // "modifiedCount": 1, - Says it was successful when we got at least 
     res.json(data);
   } catch (err) {
     console.log(err);

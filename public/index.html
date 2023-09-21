@@ -42,7 +42,7 @@
                     information.
                     <br> Example names-
                     <br> <a href="/toys/search/lego">/toys/search/lego</a>
-                    <br>Example information- <br> <a href="/toys/search/321">/toys/search/321</a>
+                    <br>Example information- <br> <a href="/toys/search/Unleash your">/toys/search/Unleash your</a>
                 </td>
             </tr>
             <tr class="border border-black bg-info ">
@@ -51,7 +51,7 @@
                 <td class="border border-black">Returns a list <br> of toys by <br> category</td>
                 <td class="border border-black text-start">1.catname: the name of the category to display toys for. <br>
                     Example-
-                    <br> <a href="/toys/category/polish">/toys/category/polish</a>
+                    <br> <a href="/toys/category/Sports & Outdoor Play">/toys/category/Sports & Outdoor Play</a>
                 </td>
             </tr>
             <tr class="border border-black bg-info ">
@@ -61,9 +61,9 @@
                 <td class="border border-black text-start">• min (optional): minimum price to filter by (default: 0).
                     <br>
                     • max (optional): maximum price to filter by (default: <br> maximum 999999). <br> Example-
-                    <br> <a href="/toys/prices?min=60&max=110">/toys/prices?min=60&max=110</a>
+                    <br> <a href="/toys/prices?min=20&max=110">/toys/prices?min=20&max=110</a>
                     <br>You can also do a price range search on the page- <br>
-                    <a href="/toys/prices?page=1&min=60&max=110">/toys/prices?page=1&min=60&max=110</a>
+                    <a href="/toys/prices?page=2&min=20&max=110">/toys/prices?page=2&min=20&max=110</a>
                 </td>
             </tr>
             <tr class="border border-black bg-info ">
@@ -71,7 +71,7 @@
                 <td class="border border-black">/toys/single/:id</td>
                 <td class="border border-black">Returns a <br> single toy <br> by its ID.</td>
                 <td class="border border-black text-start">• id: the ID of the toy to retrieve.
-                    <br> <a href="/toys/single/650026395d6616d0afcbe1e0">/toys/single/650026395d6616d0afcbe1e0</a>
+                    <br> <a href="/toys/single/650bf98f12b3ef0ec4cf5f5f">/toys/single/650bf98f12b3ef0ec4cf5f5f</a>
                 </td>
             </tr>
             <tr class="border border-black bg-info ">
@@ -90,14 +90,14 @@
                     <br> Token is required!
                 </td>
                 <td class="border border-black text-start">Request Body: Toy data to be added in the <br> following
-                    format- <br> {
-                    <br> "name":"send" ,
-                    <br> "info": "321",
-                    <br> "category": "polish",
-                    <br> "img_url": " ",
-                    <br> "price": "75",
-                    <br> "userId": "650023b15d6616d0afcbe1da"
-                    <br> }
+                    format- 
+                    <br>{
+                        <br> name:"A car on a sign"
+                        <br> info:"Control the car with the remote control."
+                        <br> category:"Brain Teasers"
+                        <br>  img_url:"https://example.com/A-car-on-a-sign.jpg"
+                        <br> price:30
+                        <br> }
                 </td>
             </tr>
             <tr class="border border-black bg-warning bg-gradient ">
@@ -108,15 +108,13 @@
                 </td>
                 <td class="border border-black text-start">• editId: the ID of the toy to update. <br>• Request Body:
                     Toy data to be <br> updated in the following format-
-                    <br> {
-                    <br> "name":"send" ,
-                    <br> "info": "321",
-                    <br> "category": "polish",
-                    <br> "img_url": " ",
-                    <br> "price": "70",
-                    <br> "userId": "650023b15d6616d0afcbe1da"
-                    <br> }
-
+                    <br>{
+                        <br>name:"Art Easel"
+                        <br>info:"Let your artistic talents shine with this art easel."
+                        <br>category:"Arts & Crafts"
+                        <br>img_url:"https://example.com/art_easel.jpg"
+                        <br>price:40
+                        <br> }
                 </td>
             </tr>
             <tr class="border border-black bg-danger bg-gradient ">
@@ -141,7 +139,7 @@
             </tr>
             <tr class="border border-black bg-success bg-gradient ">
                 <td class="border border-black bg-success">POST</td>
-                <td class="border border-black">/users</td>
+                <td class="border border-black">/users/singup</td>
                 <td class="border border-black">Create a new user</td>
                 <td class="border border-black text-start">Request Body: User data to be <br> post in the following
                     format-
@@ -149,9 +147,7 @@
                     <br> "name": "string",
                     <br> "email": "String",
                     <br>"password": "string",
-                    <br>"role": "string"
                     <br>}
-                    <br> role is allowed and not required <br> (default: user).
                 </td>
             </tr>
             <tr class="border border-black bg-success bg-gradient ">
