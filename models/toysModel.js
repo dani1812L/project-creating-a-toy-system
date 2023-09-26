@@ -22,7 +22,6 @@ exports.validateToys = (_reqBody) => {
     category: Joi.string().min(2).max(150).required(),
     img_url: Joi.allow(null,""),
     price: Joi.number().min(1).max(99999).required(),
-    userId: Joi.string().min(2).max(150).required(),
   });
   return joiSchema.validate(_reqBody);
 };
